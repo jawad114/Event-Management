@@ -26,9 +26,7 @@ export const buttonStyles = cva(
 
 type ButtonProps = VariantProps<typeof buttonStyles> & ComponentProps<"button">
 function Button({variant, size,className, ...props}:ButtonProps) {
-  return (
-    <button {...props} className={twMerge(className,buttonStyles({variant, size, }),className, )}></button>
-  )
+  return (<button {...props} className={twMerge(className,buttonStyles({variant, size, }),className, )}></button> )
 }
 
 export default Button

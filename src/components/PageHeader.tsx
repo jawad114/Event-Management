@@ -1,11 +1,12 @@
-import { Bell, Settings, ArrowLeft, Home, BookDashed, LayoutDashboard, Calendar, CalendarClock, HandPlatter, Settings2 } from 'lucide-react'; 
+import { Bell, Settings, ArrowLeft, Home, BookDashed, LayoutDashboard, Calendar, CalendarClock, HandPlatter, Settings2, LogOut } from 'lucide-react'; 
 import React, { useState } from 'react';
 import SmallSideBar from './SmallSideBar';
 import LargeSideBarSection from './LargeSideBarSection';
 import LargeSideBarItems from './LargeSideBarItems';
-
+import { ToastContainer,toast  } from 'react-toastify';
 
 function PageHeader() {
+  
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -22,7 +23,11 @@ function PageHeader() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+   
+    toast.success("Logout successful!"); 
+  };
 
   return (
     <div className='flex flex-col md:flex-row md:items-center md:justify-between lg:mt-4 mt-14'>
@@ -45,10 +50,10 @@ function PageHeader() {
 
       <div className='flex items-center hidden md:flex flex-shrink-0'>
        
-        <Settings className='ml-3 mt-4 md:mt-0' />
-        
-        <h1 className='text-xl text-center ml-2 mt-3 md:mt-0'>ShowOps</h1>
-      </div>
+       <Settings className='ml-3 mt-4 md:mt-0' />
+       
+       <h1 className='text-xl text-center ml-2 mt-3 md:mt-0'>ShowOps</h1>
+     </div>
 
       <div className='mt-4 md:mt-0 flex flex-shrink-0 lg:ml-[-1000px] md:ml-[1000px] w-full md:w-auto'>
   <div className='relative w-full lg:mr-60 ml-60'>
@@ -126,11 +131,20 @@ function PageHeader() {
           </div>
           <div className='mt-16'>
             <LargeSideBarSection>
-              <LargeSideBarItems Icon={LayoutDashboard} title="Dashboard" url="/" isActive={true} /> 
+              <LargeSideBarItems Icon={LayoutDashboard} title="Dashboard" url="/home" isActive={true} /> 
               <LargeSideBarItems Icon={Calendar} title="Calendar" url="/" isActive={false} /> 
-              <LargeSideBarItems Icon={CalendarClock} title="Events" url="/" isActive={false} /> 
+              <LargeSideBarItems Icon={CalendarClock} title="Events" url="/events" isActive={false} /> 
               <LargeSideBarItems Icon={HandPlatter} title="Offer & Deals" url="/" isActive={false} /> 
               <LargeSideBarItems Icon={Settings2} title="Settings" url="/" isActive={false} /> 
+              
+              <LargeSideBarItems 
+            Icon={LogOut} 
+            title="Logout" 
+            url="/" 
+            isActive={false} 
+            onClick={handleLogout} 
+          />
+
             </LargeSideBarSection>
           </div>
           <button onClick={toggleSidebar} className='mt-2 text-gray-600'>
